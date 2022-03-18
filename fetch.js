@@ -186,7 +186,7 @@ const createPokedex = (datos) =>
 
 
     getStats(datos);
-    grafica(datos.stats);
+    //grafica(datos.stats);
     visible();
     
     valor.value = datos.id;
