@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://kit.fontawesome.com/844673928c.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="#">
+    <title>PokeAPI</title>     
+</head>
+
+
+
+<body>
+    
+     <!--   <h1>
+            <img src="./assets/pokeball.png" alt="" width="30px">
+            Pokedex
+      </h1>-->
+    
+    
+    <!--
+        
+                <audio controls autoplay loop>
+                    <source src="./assets/pokemusic.mp3" type="audio/mpeg">
+              </audio>
+    -->
+    <header>
+        <div class="cont">
+            <div id="cont1">
+                <div class="ci2"></div>
+                <div class="ci3"></div>
+            </div>
+            <div id="cont2">
+                <div class="ci2"></div>
+                <div class="ci3"></div>
+            </div>
+        </div>
+    
+        <div id="contenedor3">
+            <div class="ci1" id="blanco"></div>
+        </div>
+    
+        <div id="contenedor2">
+            <div class="ci1"></div>    
+        </div>    
+    </header><br>
+
+
+    <section id="seccion-inicio" class="inicio2">
+        <div class="pokeContenedor">        
+            <div id="pokeball" class="pokeball">
+                <div class="extremo"></div>
+                <div class="circulo"></div>
+                <div class="extremo invertido"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="seccion-principal" class="inicio">
+        <div class="partes">
+            <div id="changeImg">
+                <button id="b_Artwork">Artwork</button>
+            <button id="b_frontS">Front-sprite</button>
+            <button id="b_backS">Back-sprite</button>
+        </div>
+        <div id="imgContainer">
+            <img src="./assets/pokeball-blue.png" id="pokeImg" alt="" width="100%" ><br>
+        </div><br>
+        
+        
+        <div id="data">
+            <div class="buttons">
+                <input type="text" id="pokeName" placeholder="Nombre o ID">
+                <input type="number" id="valor" min="0" max="898"><br>
+                <button onclick="fetchPokemon()" class="search_b">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div><br>
+            
+            <div class="nombreID">
+                <div id="nombrePlusMinus">
+                    <button id="menos" onclick="minusOne()">&lt</button>
+                    <h2 id="pokeID">Nombre del pokemon</h2>
+                    <button id="mas" onclick="plusOne();">&gt</button>
+                </div>
+                <h3 id="pokeGenero"></h3>
+            </div>
+            
+            <div id="description">
+                <p id="pokeDescription">Descripcion</p><br>
+            </div>
+            
+            <div id="pokedatos" class="isVisible">
+                <div id="tipos">
+                    <p id="tipo">TIPOS:</p>
+                    <p id="type1" class="strokeme">Tipo 1</p>
+                    <p id="type2" class="strokeme">Tipo 2</p>
+                </div>
+                <div id="peso">
+                    <p id="labelPeso">PESO</p>
+                    <p id="pokePeso">???</p>
+                </div>
+                <div id="altura">
+                    <p id="labelAltura">ALTURA</p>
+                    <p id="pokeAltura">???</p>
+                </div>
+            </div>
+            
+            <p id="prueba"></p>
+        </div>
+    </div>
+        
+    
+        <div class="partes isVisible">
+            <div class="separador"></div><br>
+            <div class="nombreID isVisible">
+                <h2>Stats</h2>
+            </div>
+
+            <div class="isVisible">
+                <div id="stats"></div>
+            </div>
+
+            
+
+
+
+            <div id="container" class="isVisible">
+                <canvas id="myChart" class="isVisible" height="300" width="300"></canvas>
+    </div>
+
+
+    
+            <div><br>
+                <div class="nombreID isVisible"><h2>Evoluciones</h2></div>
+                <div id="evoluciones" ></div>
+            </div>
+            
+        </div>
+    
+        <div class="cube"></div>
+        <div class="cube"></div>
+       <div class="cube"></div>
+       <div class="cube"></div>
+       <div class="cube"></div>
+       <div class="cube"></div>
+       
+
+    </section><br>
+
+
+
+<!------------------Stats--------------------------->
+    
+    <!------------------Stats--------------------------->
+    
+
+
+
+   
+</body>
+<footer>
+    <div class="alReves">
+        <div class="cont">
+            <div id="cont1">
+                <div class="ci2"></div>
+                <div class="ci3"></div>
+            </div>
+            <div id="cont2">
+                <div class="ci2"></div>
+                <div class="ci3"></div>
+            </div>
+        </div>
+    
+        <div id="contenedor3">
+            <div class="ci1" id="blanco"></div>
+        </div>
+    
+        <div id="contenedor2">
+            <div class="ci1"></div>    
+        </div>    
+    </div>
+
+
+    <script src="../node_modules/chart.js/dist/chart.js"></script>
+    <script src="../fetch.js"></script>
+</footer>
+</html>
