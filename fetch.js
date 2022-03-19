@@ -43,8 +43,8 @@ const fetchPokemon = ()=>
     fetch(url).then(function(result){
         if(result.status != "200"){
             console.log("Pokemon no identificado");
-            pokeImg.src = "/assets/missing-no.png";
-            //pokeImg.src = "https://raw.githubusercontent.com/felixVelazco/pokedex/main/assets/missing-no.png";
+            //pokeImg.src = "/assets/missing-no.png";
+            pokeImg.src = "https://github.com/felixVelazco/pokedex/blob/main/assets/missing-no.png";
             pokeName.innerText = '???';
             pokeID.innerText = '???';
             type1.innerText = '???';
