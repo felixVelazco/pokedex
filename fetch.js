@@ -1,4 +1,14 @@
+//Variables globales
 var pokemonID=0;
+var url1="https://pokeapi.co/api/v2/pokemon/";
+var url2="https://pokeapi.co/api/v2/pokemon-species/";
+var url3="https://pokeapi.co/api/v2/evolution-chain/";
+var myChart;
+const contenedor = document.getElementById('evoluciones')
+const pokeball = document.getElementById("pokeball");
+var tmpChain = 0;
+var tempSrc;
+//Funcion para detectar el enter como validacion
 
 var input = document.getElementById("pokeName");
 input.addEventListener("keyup", function(event) {
@@ -33,7 +43,8 @@ const fetchPokemon = ()=>
     fetch(url).then(function(result){
         if(result.status != "200"){
             console.log("Pokemon no identificado");
-            pokeImg.src = "./assets/missing-no.png";
+            pokeImg.src = "/assets/missing-no.png";
+            //pokeImg.src = "https://raw.githubusercontent.com/felixVelazco/pokedex/main/assets/missing-no.png";
             pokeName.innerText = '???';
             pokeID.innerText = '???';
             type1.innerText = '???';
@@ -50,31 +61,19 @@ const fetchPokemon = ()=>
         else
             return result.json();
         
-    }).then((getObj)).catch(function(error){console.log('error ', error)});
+    }).then((createPokedex)).catch(function(error){console.log('error ', error)});
 }
 
 
 async function fetchAsync(url, clase){
     const res = await fetch(url);
     const results = await res.json();
-    
-
-    
+     
     await clase(results);
     return results;
-
 }
 
-
-const fetchPokemonTree = (url, clase)=>{
-    fetch(url).then(function(result){
-        if(result.status != "200")
-            console.log("Pokemon no identificado");
-        else
-            return result.json(); }).then((clase)).catch(function(error){console.log('error ', error)});
-}
-
-
+//Funcion para cambiar las imagenes entre artwork, front y back sprite
 const changeImg = (datos) =>{
     b_Artwork.onclick = function(){
         pokeImg.src = datos.sprites.other["official-artwork"].front_default;
@@ -87,21 +86,21 @@ const changeImg = (datos) =>{
     }
 }
 
-
+//Funciones para aparecer y desaparecer todos los elementos
 const visible = ()=>{
     const clase = document.getElementsByClassName("isVisible");
     for(let i = 0; i < clase.length; i++){
-        clase[i].style.display = "block"; // depending on what you're doing
+        clase[i].style.display = "block";
     }
 }
 const invisible = ()=>{
     const clase = document.getElementsByClassName("isVisible");
     for(let i = 0; i < clase.length; i++){
-        clase[i].style.display = "none"; // depending on what you're doing
+        clase[i].style.display = "none"; 
     }
 }
 
-
+//funciones para desplazar un pokemon
 async function plusOne(){
     if(valor.value<898)
     {
@@ -119,16 +118,6 @@ async function minusOne(){
     }
 }
 
-var url1="https://pokeapi.co/api/v2/pokemon/";
-var url2="https://pokeapi.co/api/v2/pokemon-species/";
-var url3="https://pokeapi.co/api/v2/evolution-chain/";
-
-const getObj = (datos) =>
-{
-    //console.log(datos)
-    createPokedex(datos);
-    return datos;
-}
 
 
 const eliminarClase = (nombre)=>{
@@ -141,7 +130,6 @@ const eliminarClase = (nombre)=>{
 
 const getStats = (datos) =>{
     const divStats = document.getElementById('stats');
-
     eliminarClase('statContainer');
     
     let stats = datos.stats;
@@ -157,33 +145,32 @@ const getStats = (datos) =>{
         statLabel.innerText = element.stat['name'].toUpperCase();
         element.base_stat
 
-
         statContainer.append(statLabel);
         statContainer.append(statvalue);
         divStats.append(statContainer);
     });
 }
 
+//Funcion para poner mayuscula la primera letra
 mayuscula = (cadena)=>{
     cadenaNueva = cadena.charAt(0).toUpperCase()+cadena.slice(1);
     return cadenaNueva;
 }
 
+
+//Funcion para crear el pokedex
 const createPokedex = (datos) =>
 { 
-    console.log(datos);
-
-    id = `${datos.id.toString().padStart(3,0)}`;
+    id = `${datos.id.toString().padStart(3,0)}`; //pasar al formato de 3 digitos
     pokeName.value = datos.name;
-    pokeID.innerText = '#'+id + "-"+mayuscula(datos.name); //datos.name.charAt(0).toUpperCase()+datos.name.slice(1);
+    pokeID.innerText = '#'+id + "-"+mayuscula(datos.name); 
     pokeImg.src = datos.sprites.other["official-artwork"].front_default;
-
-
 
     changeImg(datos);
 
-    fetchPokemonTree(url2+datos.id,descripcion);
-
+    console.log('datos id');
+    console.log(datos.id);
+    fetchAsync(url2+datos.id,descripcion);
 
     getStats(datos);
     grafica(datos.stats);
@@ -191,25 +178,22 @@ const createPokedex = (datos) =>
     
     valor.value = datos.id;
 
-    type1.removeAttribute('class')
+    type1.removeAttribute('class');
     type1.innerText = datos.types[0]['type']['name'].toUpperCase();
     type1.classList.add(datos.types[0]['type']['name']);
-
-    pokePeso.innerText = datos.weight / 10 + "kg";
-    pokeAltura.innerText = datos.height /10 + "mts";
-
-
+    
     if(datos.types.length == 2){
         type2.innerText = datos.types[1]['type']['name'].toUpperCase();
         type2.style.display = 'flex';
+        type2.style.justifyContent = 'center';
         type2.removeAttribute('class')
-        type2.style.textAlign = 'center';
         type2.classList.add(datos.types[1]['type']['name']);
     }
     else
         type2.style.display = 'none';
 
-    console.log(datos);
+    pokePeso.innerText = datos.weight / 10 + "kg";
+    pokeAltura.innerText = datos.height /10 + "mts";
 }
 
 const descripcion = (datos)=>{
@@ -218,18 +202,25 @@ const descripcion = (datos)=>{
     console.log(datos);
     pokeGenero.innerText = algo2;
     pokeDescription.innerText = algo;
-    
-    //fetchEvolution(datos);
-    console.log(url3);
-    fetchPokemonTree(datos.evolution_chain.url, evolution)
+        
+    fetchAsync(datos.evolution_chain.url, evolution)
 
     imgContainer.style.backgroundImage = `none`;
     imgContainer.style.backgroundColor = 'rgba(255,255,255,0.5)';     
     
 }
+const buscar = (datos, param1)=>{
+    let i=0;
+    for(i=0; i<datos.length; i++)
+    {
+        if(datos[i]["language"]['name']=='es')
+        {
+            algo = datos[i][[param1]];
+            return algo.replaceAll('\n', ' ');
+        }
+    }
 
-const contenedor = document.getElementById('evoluciones')
-
+}
 
 
 const selectPokemon = (id) =>{
@@ -237,55 +228,53 @@ const selectPokemon = (id) =>{
    fetchPokemon();
 }
 
-
-
-
-
 async function evolution(datos){
-
-    eliminarClase('evolucion')
-
-
-    let bloque = document.createElement('p');
-    let bloque1 = document.createElement('div');
+    //Condicion para eliminar las evoluciones si es que no pertenecen a la misma cadena evolutiva
+    if(tmpChain != datos.id)
+    {
+        //se elimina toda la clase evolucion
+        await eliminarClase('evolucion');
+        
+        let bloque = document.createElement('p');
+        let bloque1 = document.createElement('div');
     
+        bloque1.classList = "evolucion";
+        bloque.classList = "evolucion";
+        
+        
+        const evolImg1 = document.createElement('img');
+        evolImg1.id = datos.chain.species.name;
+        evolImg1.setAttribute('onclick', "selectPokemon(this.id);");
+        
+        bloque.innerText = mayuscula(datos.chain.species.name);
 
-    bloque1.classList = "evolucion";
-    bloque.classList = "evolucion";
-    
-    
-    const evolImg1 = document.createElement('img');
-    evolImg1.id = datos.chain.species.name;
-    evolImg1.setAttribute('onclick', "selectPokemon(this.id);");
-    
-    bloque.innerText = mayuscula(datos.chain.species.name);
-
-    //await fetchPokemonTree(url1+bloque.innerText, evolImg);
-    await fetchAsync(url1+evolImg1.id, evolImg);
-
-    console.log(tempSrc);    
-    evolImg1.src = tempSrc;
-
-    bloque1.append(evolImg1);
-    bloque1.append(bloque);
-    contenedor.append(bloque1);
-    
-    if(datos.chain.evolves_to.length!=0)
-        iteracion(datos.chain.evolves_to);
+        await fetchAsync(url1+evolImg1.id, evolImg);
+        
+        console.log(tempSrc);    
+        evolImg1.src = tempSrc;
+        
+        bloque1.append(evolImg1);
+        bloque1.append(bloque);
+        contenedor.append(bloque1);
+        
+        if(datos.chain.evolves_to.length!=0)
+            iteracion(datos.chain.evolves_to);
+        console.log(datos.id);
+        tmpChain = datos.id;
+    }
 }
 
-var tempSrc;
-
-
+//Funcion para las imagenes de las evoluciones
 const evolImg = (pokemon) =>{
     tempSrc = pokemon.sprites.other["official-artwork"].front_default;
 }
 
 
-
+//Funcion para tomar todas las evoluciones de un pokemon
 async function iteracion(pokemon){
     const estadisticas = Array.from(document.getElementsByClassName('statContainer'))
 
+    //Se crean las divisiones
     let bloque = document.createElement('div');
     let flecha = document.createElement('div');
     bloque.classList = "evolucion";
@@ -315,38 +304,14 @@ async function iteracion(pokemon){
         bloque.append(bloque2);
         contenedor.append(bloque);
 
-
-
+        //si la longitud de la lista aun no esta vacia, entra en la siguiente iteracion
         if(evolucion.evolves_to.length!=0)
             iteracion(evolucion.evolves_to);
     }
 }
 
 
-
-const buscar = (datos, param1)=>{
-    let i=0;
-    for(i=0; i<datos.length; i++)
-    {
-        if(datos[i]["language"]['name']=='es')
-        {
-            algo = datos[i][[param1]];
-            return algo.replaceAll('\n', ' ');
-        }
-    }
-
-}
-
-//fetchPokemon();
-
-
-
-
-
-
-
-
-
+//Funcion para que aparezca en el inicio la pokebola
 const iniciar = () =>{
     const principal = document.getElementById("seccion-principal");
     const inicio = document.getElementById("seccion-inicio");
@@ -356,18 +321,17 @@ const iniciar = () =>{
         principal.classList.remove('inicio');
         principal.classList.add('inicio2');
 
-        plusOne();
+        plusOne();//para que empiece con bulbasaur
 }
 
-const pokeball = document.getElementById("pokeball");
 pokeball.addEventListener("click", iniciar);
 
 
-var myChart;
+
 
 function grafica(stats) {
-
-    if(myChart)
+    
+    if(myChart)//Condicion para destruir grafica si ya existe
         myChart.destroy();
 
     const ctx = document.getElementById('myChart');
@@ -378,15 +342,7 @@ function grafica(stats) {
             labels: [],//['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             datasets: [{
                 label: 'Stats',
-                data: [],//[12, 19, 3, 5, 2, 3],
-                /*backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],*/
+                data: [],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
@@ -435,7 +391,7 @@ function grafica(stats) {
     });
     
     ctx.style.backgroundColor = 'rgba(0,0,0,0.5)';
-    ctx.style.border = '2px solid rgba(54, 162, 235, 0.5)'
+    //ctx.style.border = '2px solid rgba(54, 162, 235, 0.5)'
     ctx.style["border-radius"] = '20px';
     myChart.update();
 }

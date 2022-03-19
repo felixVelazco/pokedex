@@ -7,11 +7,6 @@ body{
     display: flex;
     flex-direction: column;
     
- 
- /*   background-color: rgb(23, 177, 238);
-    background-image: url("./assets/fondo.png");
-    background-repeat: repeat;*/
-
     margin: 0;
     background: linear-gradient(132deg, #fdfbfc, #13c6d3, #00095e);
     background-size: 1000% 1000%;
@@ -40,7 +35,6 @@ header, .alReves{
     flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
     padding: 5px 0;
 }
-
 
 .cont{
     width: 100%;
@@ -258,85 +252,65 @@ input[type='text']{
 }
 
 
+/*Tipos Pokemon*/
 .bug{
-    color: white;
     background-color: #87950D;
 }
 .electric{
-    color: white;
     background-color: #E79302;
 }
 .fire{
-    color: white;
     background-color: #C62000;
 }
 .grass{
-    color: white;
     background-color: #6EBF31;
 }
 .normal{
-    color: white;
     background-color: #ADA594;
 }
 .rock{
-    color: white;
     background-color: #9E863D;
 }
-
-
 .dark{
-    color: white;
     background-color: #3C2D23;
 }
 .fairy{
-    color: white;
     background-color: #E18EE1;
 }
 .flying{
-    color: white;
     background-color: #5D73D4;
 }
 .ground{
-    color: white;
     background-color: #AB8A32;
 }
 .poison{
-    color: white;
     background-color: #591A5C;
 }
 .steel{
-    color: white;
     background-color: #8E8E9E;
 }
-
-
 .dragon{
-    color: white;
     background-color: #503CA7;
 }
 .fighting{
-    color: white;
     background-color: #5F2311;
 }
 .ghost{
-    color: white;
     background-color: #454592;
 }
 .ice{
-    color: white;
     background-color: #6CD2F5;
 }
 .psychic{
-    color: white;
     background-color: #E53D75;
 }
 .water{
-    color: white;
     background-color: #0C67C2;
 }
 
-.bug, .electric, .fire, .normal, .rock, .dark, .fairy, .flying, .poison, .steel,
+.bug, .electric, .fire, .grass, .normal, .rock, .dark, .fairy, .flying, .poison, .steel,
 .dragon, .fighting, .ghost, .ice, .psychic, .water {
+    color: white;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
