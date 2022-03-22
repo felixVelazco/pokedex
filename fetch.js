@@ -38,13 +38,15 @@ const fetchPokemon = ()=>
 
     const url = `https://pokeapi.co/api/v2/pokemon/${pokeName}`;
 
+    //Funcion para llevarte al top del pokedex
+    document.documentElement.scrollTop = 240;
 
    //const url = `https://pokeapi.co/api/v2/pokemon/pikachu`;
     fetch(url).then(function(result){
         if(result.status != "200"){
             console.log("Pokemon no identificado");
-            //pokeImg.src = "/assets/missing-no.png";
-            pokeImg.src = "./assets/pokeball-blue.png";
+            pokeImg.src = "/assets/missing-no.png";
+            //pokeImg.src = "./assets/pokeball-blue.png";
             pokeName.innerText = '???';
             pokeID.innerText = '???';
             type1.innerText = '???';
